@@ -19,7 +19,7 @@ func InitializeKafka(configurations *config.Configurations) {
 	Kafkaconfig.MaxBytes = configurations.Kafka.MaxBytes
 }
 func Produce(transaction *TransModel.Transaction) {
-	conn, _ := kafka.DialLeader(context.Background(), "tcp", "localhost:9092", "topic_transaction", 0)
+	conn, _ := kafka.DialLeader(context.Background(), "tcp", "kafka:29092", "topic_transaction", 0)
 	conn.SetWriteDeadline(time.Now().Add(time.Second * 10))
 	obj, _ := json.Marshal(&transaction)
 	conn.WriteMessages(kafka.Message{Value: []byte(obj)})
